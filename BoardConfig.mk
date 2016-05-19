@@ -170,7 +170,7 @@ BOARD_USES_QC_TIME_SERVICES := true
 #Use dlmalloc instead of jemalloc for mallocs
 MALLOC_IMPL := dlmalloc
 
-# CMHW
+# MKHW
 BOARD_HARDWARE_CLASS := \
     hardware/mokee/mkhw \
     device/xiaomi/libra/mkhw
