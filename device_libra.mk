@@ -12,8 +12,6 @@ $(call inherit-product, frameworks/native/build/phone-xhdpi-2048-dalvik-heap.mk)
 
 #chargeonlymode
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/rootdir/etc/sbin/chargeonlymode:root/sbin/chargeonlymode \
-    $(LOCAL_PATH)/rootdir/etc/sbin/qcrypto_module.ko:root/sbin/qcrypto_module.ko \
     $(LOCAL_PATH)/rootdir/etc/sbin/chargeonlymode:root/sbin/chargeonlymode
 
 #media
@@ -47,8 +45,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/permissions/cneapiclient.xml:system/etc/permissions/cneapiclient.xml \
     $(LOCAL_PATH)/permissions/com.qti.snapdragon.sdk.display.xml:system/etc/permissions/com.qti.snapdragon.sdk.display.xml \
-    $(LOCAL_PATH)/permissions/com.qualcomm.location.vzw_library.xml:system/etc/permissions/com.qualcomm.location.vzw_library.xml \
-    $(LOCAL_PATH)/permissions/com.qualcomm.location.xml:system/etc/permissions/com.qualcomm.location.xml \
     $(LOCAL_PATH)/permissions/com.quicinc.cne.xml:system/etc/permissions/com.quicinc.cne.xml \
     $(LOCAL_PATH)/permissions/dpmapi.xml:system/etc/permissions/dpmapi.xml \
     $(LOCAL_PATH)/permissions/embms.xml:system/etc/permissions/embms.xml \
@@ -85,7 +81,6 @@ PRODUCT_COPY_FILES += \
 #misc
 PRODUCT_COPY_FILES += \
     $(call find-copy-subdir-files,*,$(LOCAL_PATH)/misc,system/etc)
-
 
 PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
@@ -134,8 +129,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     com.dsi.ant.antradio_library \
     AntHalService \
-    libantradio \
-    antradio_app
+    libantradio
 
 # Audio
 PRODUCT_PACKAGES += \
@@ -144,9 +138,10 @@ PRODUCT_PACKAGES += \
     audio.usb.default \
     audio.r_submix.default \
     audio.primary.msm8992 \
-    tinymix \
-    libtinycompress \
-    cplay
+    libqcompostprocbundle \
+    libqcomvisualizer \
+    libqcomvoiceprocessing \
+    tinymix
 
 PRODUCT_PACKAGES += \
     libaudio-resampler \
@@ -162,9 +157,13 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     charger_res_images
 
-# Connectivity Engine support
+# Connectivity Engine support (CNE)
 PRODUCT_PACKAGES += \
-    libcnefeatureconfig
+    CNEService \
+    cneapiclient \
+    com.quicinc.cne \
+    libcnefeatureconfig \
+    services-ext
 
 # Curl
 PRODUCT_PACKAGES += \
@@ -176,6 +175,18 @@ PRODUCT_PACKAGES += \
     e2fsck \
     make_ext4fs \
     setup_fs
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/gps/flp.conf:system/etc/flp.conf \
+    $(LOCAL_PATH)/gps/gps.conf:system/etc/gps.conf \
+    $(LOCAL_PATH)/gps/izat.conf:system/etc/izat.conf \
+    $(LOCAL_PATH)/gps/quipc.conf:system/etc/quipc.conf \
+    $(LOCAL_PATH)/gps/sap.conf:system/etc/sap.conf
+
+# DPM
+PRODUCT_PACKAGES += \
+    com.qti.dpmframework \
+    dpmapi
 
 # GPS
 PRODUCT_PACKAGES += \
@@ -213,21 +224,14 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     librs_jni
 
-# OMX
 PRODUCT_PACKAGES += \
-    libc2dcolorconvert \
-    libdashplayer \
-    libdivxdrmdecrypt \
-    libmm-omxcore \
     libOmxAacEnc \
     libOmxAmrEnc \
     libOmxCore \
     libOmxEvrcEnc \
     libOmxQcelp13Enc \
-    libOmxVdecHevc \
     libOmxVdec \
     libOmxVenc \
-    libOmxVidcCommon \
     libstagefrighthw
 
 #rmnetctl
@@ -255,6 +259,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libstlport
 
+# CameraWrapper
 PRODUCT_PACKAGES += \
     camera.msm8992 \
     libcamera_shim
@@ -265,6 +270,9 @@ PRODUCT_PACKAGES += \
 
 # Wifi
 PRODUCT_PACKAGES += \
+    ipacm \
+    ipacm-diag \
+    IPACM_cfg.xml \
     wpa_supplicant.conf \
     wpa_supplicant \
     libwpa_client \
@@ -275,10 +283,6 @@ PRODUCT_PACKAGES += \
     hostapd \
     hostapd_cli \
     dhcpcd.conf
-
-#gps
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/gps/gps.conf:system/etc/gps.conf
 
 # Screen density
 PRODUCT_AAPT_CONFIG := normal
