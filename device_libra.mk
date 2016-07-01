@@ -176,13 +176,6 @@ PRODUCT_PACKAGES += \
     make_ext4fs \
     setup_fs
 
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/gps/flp.conf:system/etc/flp.conf \
-    $(LOCAL_PATH)/gps/gps.conf:system/etc/gps.conf \
-    $(LOCAL_PATH)/gps/izat.conf:system/etc/izat.conf \
-    $(LOCAL_PATH)/gps/quipc.conf:system/etc/quipc.conf \
-    $(LOCAL_PATH)/gps/sap.conf:system/etc/sap.conf
-
 # DPM
 PRODUCT_PACKAGES += \
     com.qti.dpmframework \
@@ -191,6 +184,17 @@ PRODUCT_PACKAGES += \
 # GPS
 PRODUCT_PACKAGES += \
     gps.msm8992
+
+PRODUCT_PACKAGES += \
+    flp.conf \
+    gps.conf \
+    izat.conf \
+    lowi.conf \
+    sap.conf
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.gps.qc_nlp_in_use=0 \
+    ro.gps.agps_provider=1
 
 # Graphics
 PRODUCT_PACKAGES += \
@@ -312,6 +316,5 @@ PRODUCT_PACKAGES += \
     init.qcom.usb.rc \
     init.recovery.hardware.rc \
     init.target.rc \
-    ueventd.goldfish.rc \
     ueventd.qcom.rc \
     fstab.qcom
