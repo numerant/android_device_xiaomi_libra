@@ -25,7 +25,9 @@ TARGET_2ND_CPU_ABI := armeabi-v7a
 TARGET_2ND_CPU_ABI2 := armeabi
 TARGET_2ND_CPU_VARIANT := cortex-a53.a57
 TARGET_CPU_CORTEX_A53 := true
+
 ENABLE_CPUSETS := true
+
 TARGET_USES_64_BIT_BINDER := true
 TARGET_CPU_SMP := true
 
@@ -194,7 +196,6 @@ BOARD_HARDWARE_CLASS := \
     device/xiaomi/libra/mkhw
 
 # dt2w
-#TARGET_TAP_TO_WAKE_NODE := "/data/wake_gesture"
 TARGET_TAP_TO_WAKE_NODE := "/sys/devices/soc.0/f9924000.i2c/i2c-2/2-0070/input/input1/wake_gesture"
 
 # Ril
