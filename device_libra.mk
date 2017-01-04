@@ -251,10 +251,6 @@ PRODUCT_PACKAGES += \
     libtinyxml2 \
     libxml2
 
-#workaround
-PRODUCT_PACKAGES += \
-    libboringssl-compat
-
 # Sensors
 PRODUCT_PACKAGES += \
     sensors.msm8992
