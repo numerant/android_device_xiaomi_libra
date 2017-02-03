@@ -40,7 +40,7 @@ on early-boot
 
 on post-fs
 
-    export LD_SHIM_LIBS "/system/lib/libcrypto.so|libboringssl-compat.so:/system/lib64/libcrypto.so|libboringssl-compat.so:/system/lib/libmmcamera_interface.so|libcamera_shim.so:/system/vendor/lib/libmmcamera2_sensor_modules.so|libcamera_shim.so:/system/vendor/lib/libmmcamera2_stats_modules.so|libcamera_shim.so"
+    export LD_SHIM_LIBS "/system/vendor/bin/mm-qcamera-daemon|libcamera_shim.so"
 
    setprop ro.hardware.sensors lsm6db0
 
@@ -106,7 +106,7 @@ on boot
     chown system system /sys/class/leds/button-backlight1/max_brightness
 
 #start camera server as daemon
-service qcamerasvr /system/bin/mm-qcamera-daemon
+service qcamerasvr /system/vendor/bin/mm-qcamera-daemon
     class late_start
     user camera
     group camera system inet input graphics

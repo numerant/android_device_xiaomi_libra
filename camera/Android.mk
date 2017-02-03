@@ -32,9 +32,9 @@ LOCAL_SRC_FILES := \
     CameraWrapper.cpp
 
 LOCAL_SHARED_LIBRARIES := \
-    libhardware liblog libutils libgui
+    libhardware liblog libcamera_client libgui libutils
 
-LOCAL_C_INCLUDES += \
+LOCAL_C_INCLUDES := \
     system/media/camera/include
 
 LOCAL_MODULE_RELATIVE_PATH := hw
