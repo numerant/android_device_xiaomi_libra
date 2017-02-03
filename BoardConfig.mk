@@ -106,7 +106,7 @@ BOARD_USE_LEGACY_UI := true
 #BOARD_CUSTOM_BOOTIMG_MK := device/xiaomi/libra/mkbootimg.mk
 TARGET_KERNEL_SOURCE := kernel/xiaomi/libra
 TARGET_KERNEL_CONFIG := cyanogenmod_libra_defconfig
-BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x37 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 boot_cpus=0-5 ramoops_memreserve=2M
+BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x37 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 boot_cpus=0-5 ramoops_memreserve=2M androidboot.selinux=permissive
 BOARD_KERNEL_SEPARATED_DT := true
 BOARD_KERNEL_BASE        := 0x00000000
 BOARD_KERNEL_PAGESIZE    := 4096
@@ -187,7 +187,7 @@ TARGET_ENABLE_QC_AV_ENHANCEMENTS := true
 BOARD_USES_QC_TIME_SERVICES := true
 
 #Use dlmalloc instead of jemalloc for mallocs
-MALLOC_IMPL := dlmalloc
+#MALLOC_IMPL := dlmalloc
 
 # MKHW
 BOARD_HARDWARE_CLASS := \
@@ -202,7 +202,7 @@ FEATURE_QCRIL_UIM_SAP_SERVER_MODE := true
 TARGET_RIL_VARIANT := caf
 
 # Added to indicate that protobuf-c is supported in this build
-PROTOBUF_SUPPORTED := true
+#PROTOBUF_SUPPORTED := true
 
 # Wifi
 BOARD_HAS_QCOM_WLAN             := true
