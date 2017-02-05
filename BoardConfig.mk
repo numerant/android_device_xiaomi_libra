@@ -112,13 +112,6 @@ TARGET_USES_UNCOMPRESSED_KERNEL := true
 BOARD_DTBTOOL_ARGS := -2
 BOARD_KERNEL_IMAGE_NAME := Image
 
-WLAN_MODULES:
-	mkdir -p $(KERNEL_MODULES_OUT)/qca_cld
-	mv $(KERNEL_MODULES_OUT)/wlan.ko $(KERNEL_MODULES_OUT)/qca_cld/qca_cld_wlan.ko
-	ln -sf /system/lib/modules/qca_cld/qca_cld_wlan.ko $(TARGET_OUT)/lib/modules/wlan.ko
-
-TARGET_KERNEL_MODULES += WLAN_MODULES
-
 # fix this up by examining /proc/mtd on a running device
 BOARD_BOOTIMAGE_PARTITION_SIZE := 67108864 #64M
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 67108864 #64M
@@ -175,11 +168,11 @@ TARGET_NO_SENSOR_PERMISSION_CHECK := true
 # Time services
 BOARD_USES_QC_TIME_SERVICES := true
 
-# MKHW
-BOARD_USES_MOKEE_HARDWARE := true
+# CMHW
+BOARD_USES_CYANOGEN_HARDWARE := true
 BOARD_HARDWARE_CLASS := \
-    hardware/mokee/mkhw \
-    device/xiaomi/libra/mkhw
+    hardware/cyanogen/cmhw \
+    device/xiaomi/libra/cmhw
 
 # dt2w
 TARGET_TAP_TO_WAKE_NODE := "/sys/devices/soc.0/f9924000.i2c/i2c-2/2-0070/input/input1/wake_gesture"
@@ -200,7 +193,6 @@ BOARD_WLAN_DEVICE               := qcwcn
 BOARD_WPA_SUPPLICANT_DRIVER :=  NL80211
 BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_qcwcn
 TARGET_USES_WCNSS_CTRL          := true
-WIFI_DRIVER_MODULE_PATH         := "/system/lib/modules/wlan.ko"
 WIFI_DRIVER_MODULE_NAME         := "wlan"
 WIFI_DRIVER_FW_PATH_AP          := "ap"
 WIFI_DRIVER_FW_PATH_STA         := "sta"

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 The CyanogenMod Project
+ * Copyright (C) 2016 The CyanogenMod Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,29 +14,30 @@
  * limitations under the License.
  */
 
-package org.mokee.hardware;
+package org.cyanogenmod.hardware;
 
-import org.mokee.internal.util.FileUtils; 
-import java.io.File;
+import org.cyanogenmod.internal.util.FileUtils;
 
 public class VibratorHW {
-
-    private static String LEVEL_PATH = "/sys/devices/virtual/timed_output/vibrator/amp";
+    private static String LEVEL_PATH = "/sys/class/timed_output/vibrator/vtg_level";
+    private static String MAX_PATH = "/sys/class/timed_output/vibrator/vtg_max";
+    private static String MIN_PATH = "/sys/class/timed_output/vibrator/vtg_min";
 
     public static boolean isSupported() {
-        return FileUtils.isFileWritable(LEVEL_PATH);
+        return FileUtils.isFileReadable(LEVEL_PATH) &&
+            FileUtils.isFileWritable(LEVEL_PATH);
     }
 
     public static int getMaxIntensity()  {
-        return 100;
+        return Integer.parseInt(FileUtils.readOneLine(MAX_PATH));
     }
 
     public static int getMinIntensity()  {
-        return 50;
+        return Integer.parseInt(FileUtils.readOneLine(MIN_PATH));
     }
 
     public static int getWarningThreshold()  {
-        return 90;
+        return -1;
     }
 
     public static int getCurIntensity()  {
@@ -44,7 +45,7 @@ public class VibratorHW {
     }
 
     public static int getDefaultIntensity()  {
-        return 79;
+        return getMaxIntensity();
     }
 
     public static boolean setIntensity(int intensity)  {
