@@ -14,43 +14,37 @@
  * limitations under the License.
  */
 
-package org.cyanogenmod.doze.libra;
+package com.cyanogenmod.settings.doze;
 
-import android.app.Activity;
-import android.app.IntentService;
 import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.os.Bundle;
 import android.os.IBinder;
-import android.provider.Settings;
-import android.os.SystemProperties;
 import android.util.Log;
 
 public class DozeService extends Service {
-
-    private static final boolean DEBUG = true;//false;
     private static final String TAG = "DozeService";
+    private static final boolean DEBUG = false;
 
-    private Context mContext;
+    private ProximitySensor mProximitySensor;
     private TiltSensor mTiltSensor;
 
     @Override
     public void onCreate() {
         if (DEBUG) Log.d(TAG, "Creating service");
-        super.onCreate();
-        mContext = this;
-        mTiltSensor = new TiltSensor(mContext);
+        mProximitySensor = new ProximitySensor(this);
+        mTiltSensor = new TiltSensor(this);
+
+        IntentFilter screenStateFilter = new IntentFilter(Intent.ACTION_SCREEN_ON);
+        screenStateFilter.addAction(Intent.ACTION_SCREEN_OFF);
+        registerReceiver(mScreenStateReceiver, screenStateFilter);
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (DEBUG) Log.d(TAG, "Starting service");
-        IntentFilter screenStateFilter = new IntentFilter(Intent.ACTION_SCREEN_ON);
-        screenStateFilter.addAction(Intent.ACTION_SCREEN_OFF);
-        mContext.registerReceiver(mScreenStateReceiver, screenStateFilter);
         return START_STICKY;
     }
 
@@ -58,6 +52,8 @@ public class DozeService extends Service {
     public void onDestroy() {
         if (DEBUG) Log.d(TAG, "Destroying service");
         super.onDestroy();
+        this.unregisterReceiver(mScreenStateReceiver);
+        mProximitySensor.disable();
         mTiltSensor.disable();
     }
 
@@ -66,40 +62,35 @@ public class DozeService extends Service {
         return null;
     }
 
-    private boolean isDozeEnabled() 
-	{
-        if (Settings.Secure.getInt(mContext.getContentResolver(), Settings.Secure.DOZE_ENABLED, 1) == 0)
-		{
-			if (DEBUG) Log.d(TAG, "isDozeEnabled() doze disabled");
-			return false;
-		}
-		if (SystemProperties.get("persist.sys.ts.psen_en_b", "0").equals("0"))
-		{
-			if (DEBUG) Log.d(TAG, "isDozeEnabled() pickup sensor disabled");
-			return false;
-		}
-		return true;
-    }
-
     private void onDisplayOn() {
         if (DEBUG) Log.d(TAG, "Display on");
-        mTiltSensor.disable();
+        if (Utils.pickUpEnabled(this)) {
+            mTiltSensor.disable();
+        }
+        if (Utils.handwaveGestureEnabled(this) ||
+                Utils.pocketGestureEnabled(this)) {
+            mProximitySensor.disable();
+        }
     }
 
     private void onDisplayOff() {
         if (DEBUG) Log.d(TAG, "Display off");
-        if (isDozeEnabled()) {
+        if (Utils.pickUpEnabled(this)) {
             mTiltSensor.enable();
+        }
+        if (Utils.handwaveGestureEnabled(this) ||
+                Utils.pocketGestureEnabled(this)) {
+            mProximitySensor.enable();
         }
     }
 
     private BroadcastReceiver mScreenStateReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
-                onDisplayOff();
-            } else if (intent.getAction().equals(Intent.ACTION_SCREEN_ON)) {
+            if (intent.getAction().equals(Intent.ACTION_SCREEN_ON)) {
                 onDisplayOn();
+            } else if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
+                onDisplayOff();
             }
         }
     };

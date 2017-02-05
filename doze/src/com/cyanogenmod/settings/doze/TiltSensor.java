@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2015 The CyanogenMod Project
+ * Copyright (C) 2017 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,43 +15,38 @@
  * limitations under the License.
  */
 
-package org.cyanogenmod.doze.libra;
+package com.cyanogenmod.settings.doze;
 
 import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.SystemClock;
 import android.util.Log;
 
-public class TiltSensor extends LibraSensor {
+public class TiltSensor implements SensorEventListener {
 
-    private static final boolean DEBUG = true;
+    private static final boolean DEBUG = false;
     private static final String TAG = "TiltSensor";
 
+    private static final int BATCH_LATENCY_IN_MS = 100;
     private static final int MIN_PULSE_INTERVAL_MS = 2500;
 
+    private SensorManager mSensorManager;
+    private Sensor mSensor;
+    private Context mContext;
+
     private long mEntryTimestamp;
-    private AccelSensor mAccelSensor;
 
     public TiltSensor(Context context) {
-        super(context, Sensor.TYPE_TILT_DETECTOR);
+        mContext = context;
+        mSensorManager = (SensorManager) mContext.getSystemService(Context.SENSOR_SERVICE);
+        mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_TILT_DETECTOR);
     }
 
     @Override
-    public void enable() {
-        if (DEBUG) Log.d(TAG, "Enabling");
-        super.enable();
-        mEntryTimestamp = SystemClock.elapsedRealtime();
-    }
-
-    @Override
-    public void disable() {
-        if (DEBUG) Log.d(TAG, "Disabling");
-        super.disable();
-    }
-
-    @Override
-    protected void onSensorEvent(SensorEvent event) {
+    public void onSensorChanged(SensorEvent event) {
         if (DEBUG) Log.d(TAG, "Got sensor event: " + event.values[0]);
 
         long delta = SystemClock.elapsedRealtime() - mEntryTimestamp;
@@ -61,8 +57,24 @@ public class TiltSensor extends LibraSensor {
         }
 
         if (event.values[0] == 1) {
-            mAccelSensor = new AccelSensor(mContext);
-            mAccelSensor.enable();
+            Utils.launchDozePulse(mContext);
         }
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+        /* Empty */
+    }
+
+    protected void enable() {
+        if (DEBUG) Log.d(TAG, "Enabling");
+        mSensorManager.registerListener(this, mSensor,
+                SensorManager.SENSOR_DELAY_NORMAL, BATCH_LATENCY_IN_MS * 1000);
+        mEntryTimestamp = SystemClock.elapsedRealtime();
+    }
+
+    protected void disable() {
+        if (DEBUG) Log.d(TAG, "Disabling");
+        mSensorManager.unregisterListener(this, mSensor);
     }
 }
