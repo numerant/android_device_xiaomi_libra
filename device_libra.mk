@@ -179,6 +179,7 @@ PRODUCT_PACKAGES += \
 
 # Camrera
 PRODUCT_PACKAGES += \
+    camera.msm8992 \
     Snap
 
 # Gello

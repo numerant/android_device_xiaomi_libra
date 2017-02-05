@@ -16,23 +16,11 @@ LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
 
-LOCAL_SRC_FILES := camera/sensor.cpp camera/SensorManager.cpp camera/Threads.c
-
-LOCAL_C_INCLUDES := camera
-LOCAL_SHARED_LIBRARIES := libgui libutils liblog libbinder libandroid
-LOCAL_MODULE := libcamera_shim
-LOCAL_MODULE_TAGS := optional
-LOCAL_MODULE_CLASS := SHARED_LIBRARIES
-
-include $(BUILD_SHARED_LIBRARY)
-
-include $(CLEAR_VARS)
-
 LOCAL_SRC_FILES := \
     CameraWrapper.cpp
 
 LOCAL_SHARED_LIBRARIES := \
-    libhardware liblog libutils libgui libcamera_client
+    libhardware liblog libutils libgui
 
 LOCAL_C_INCLUDES += \
     system/media/camera/include
@@ -42,4 +30,5 @@ LOCAL_MODULE := camera.$(TARGET_BOARD_PLATFORM)
 LOCAL_MODULE_TAGS := optional
 
 LOCAL_32_BIT_ONLY := $(BOARD_QTI_CAMERA_32BIT_ONLY)
+
 include $(BUILD_SHARED_LIBRARY)
