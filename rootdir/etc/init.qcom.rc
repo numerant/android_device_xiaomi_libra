@@ -174,13 +174,20 @@ on boot
     chmod 0660 /data/misc/radio/copy_complete
 
     #doubletap to wake
-    chown system system /sys/devices/soc.0/f9924000.i2c/i2c-2/2-0070/input/input1/wake_gesture
+    chown root system /proc/touchscreen/double_tap_enable
+    chmod 0660 /proc/touchscreen/double_tap_enable
 
     #keydisabler
-    chown system system /sys/devices/soc.0/f9924000.i2c/i2c-2/2-0070/input/input1/0dbutton
+    chown root system /proc/touchscreen/nav_button_enable
+    chmod 0660 /proc/touchscreen/nav_button_enable
 
     #VibratorHW
-    chown system system /sys/devices/virtual/timed_output/vibrator/amp
+    chown system system /sys/class/timed_output/vibrator/vtg_level
+    chown system system /sys/class/timed_output/vibrator/vtg_max
+    chown system system /sys/class/timed_output/vibrator/vtg_min
+    chmod 0644 /sys/class/timed_output/vibrator/vtg_level
+    chmod 0644 /sys/class/timed_output/vibrator/vtg_max
+    chmod 0644 /sys/class/timed_output/vibrator/vtg_min
 
     #torch
     chown system system /sys/class/leds/led:torch_0/brightness
