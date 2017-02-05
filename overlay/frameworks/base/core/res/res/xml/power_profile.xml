@@ -34,6 +34,7 @@
         <value>3</value>
     </array>
     <array name="cpu.speeds">
+        <value>302400</value>
         <value>384000</value>
         <value>480000</value>
         <value>633600</value>
@@ -50,6 +51,7 @@
     </array>
     <item name="cpu.idle">3.5</item>
     <array name="cpu.active">
+        <value>90</value>
         <value>90</value>
         <value>95</value>
         <value>110</value>

@@ -786,7 +786,7 @@ case "$target" in
         echo 65 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/target_loads
         echo 20000 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/min_sample_time
         echo 80000 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/max_freq_hysteresis
-        echo 384000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
+        echo 302400 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
         # online CPU4
         echo 1 > /sys/devices/system/cpu/cpu4/online
         # Best effort limiting for first time boot if msm_performance module is absent
@@ -803,7 +803,7 @@ case "$target" in
         echo 85 > /sys/devices/system/cpu/cpu4/cpufreq/interactive/target_loads
         echo 40000 > /sys/devices/system/cpu/cpu4/cpufreq/interactive/min_sample_time
         echo 80000 > /sys/devices/system/cpu/cpu4/cpufreq/interactive/max_freq_hysteresis
-        echo 384000 > /sys/devices/system/cpu/cpu4/cpufreq/scaling_min_freq
+        echo 302400 > /sys/devices/system/cpu/cpu4/cpufreq/scaling_min_freq
         # restore A57's max
         cat /sys/devices/system/cpu/cpu4/cpufreq/cpuinfo_max_freq > /sys/devices/system/cpu/cpu4/cpufreq/scaling_max_freq
         # insert core_ctl module and use conservative paremeters
