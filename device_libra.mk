@@ -4,6 +4,8 @@ $(call inherit-product-if-exists, vendor/xiaomi/libra/libra-vendor.mk)
 
 DEVICE_PACKAGE_OVERLAYS += device/xiaomi/libra/overlay
 
+DEVICE_PACKAGE_OVERLAYS += vendor/hnt/overlay
+
 TARGET_OTA_ASSERT_DEVICE := 4C,libra
 
 $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
