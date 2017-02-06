@@ -1109,8 +1109,8 @@ case "$target" in
     ;;
     "msm8994" | "msm8992")
         rm /data/system/perfd/default_values
-        setprop ro.min_freq_0 384000
-        setprop ro.min_freq_4 384000
+        setprop ro.min_freq_0 302400
+        setprop ro.min_freq_4 302400
         start perfd
     ;;
     "apq8084")
