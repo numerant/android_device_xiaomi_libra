@@ -161,6 +161,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     LibraDoze
 
+# ExtraSettings
+PRODUCT_PACKAGES += \
+    ExtraSettings
+
 # GPS
 PRODUCT_PACKAGES += \
     gps.msm8992
