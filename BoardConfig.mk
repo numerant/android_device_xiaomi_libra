@@ -31,6 +31,10 @@ ENABLE_CPUSETS := true
 TARGET_USES_64_BIT_BINDER := true
 TARGET_CPU_SMP := true
 
+# Use Snapdragon LLVM
+TARGET_USE_SDCLANG := true
+SDCLANG_PATH := prebuilts/clang/linux-x86/host/sdclang-3.8/bin
+
 # Graphics
 BOARD_USES_ADRENO := true
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
