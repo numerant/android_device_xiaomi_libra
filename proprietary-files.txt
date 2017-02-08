@@ -14,19 +14,31 @@ vendor/lib/libfastcvopt.so
 vendor/lib64/libadsprpc.so
 
 # Audio
-vendor/lib/libacdb-fts.so
-vendor/lib/libacdbloader.so
-vendor/lib/libacdbrtac.so
-vendor/lib/libadiertac.so
-vendor/lib/libaudcal.so
+lib/soundfx/libdirac.so
+lib/libDiracAPI_SHARED.so
+vendor/etc/audio_effects.conf
+vendor/etc/audio_output_policy.conf
+vendor/etc/diracmobile.config
 vendor/lib/soundfx/libqcbassboost.so
 vendor/lib/soundfx/libqcreverb.so
 vendor/lib/soundfx/libqcvirt.so
+vendor/lib/libacdb-fts.so
+vendor/lib/libacdbloader.so
+vendor/lib/libacdbmapper.so
+vendor/lib/libacdbrtac.so
+vendor/lib/libadiertac.so
+vendor/lib/libaudcal.so
+vendor/lib/libaudioalsa.so
+vendor/lib/libdrc.so
+vendor/lib/libqct_resampler.so
+vendor/lib/libsurround_3mic_proc.so
 vendor/lib64/libacdb-fts.so
 vendor/lib64/libacdbloader.so
+vendor/lib64/libacdbmapper.so
 vendor/lib64/libacdbrtac.so
 vendor/lib64/libadiertac.so
 vendor/lib64/libaudcal.so
+vendor/lib64/libaudioalsa.so
 
 # Bluetooth
 bin/btnvtool
