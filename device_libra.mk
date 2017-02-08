@@ -155,7 +155,8 @@ PRODUCT_PACKAGES += \
     lowi.conf \
     quipc.conf \
     sap.conf \
-    xtwifi.conf
+    xtwifi.conf \
+    libcurl
 
 # Doze
 PRODUCT_PACKAGES += \
