@@ -80,11 +80,28 @@ on post-fs-data
     chmod 0660 /dev/sysmatdrv
 
 on boot
+    # add a cpuset for the camera daemon
+    # we want all the little cores for camera
+    mkdir /dev/cpuset/camera-daemon
+    write /dev/cpuset/camera-daemon/mems 0
+    write /dev/cpuset/camera-daemon/cpus 0-3
+    chown system system /dev/cpuset/camera-daemon
+    chown system system /dev/cpuset/camera-daemon/tasks
+    chmod 0664 /dev/cpuset/camera-daemon/tasks
+
     # update foreground cpuset now that processors are up
-    write /dev/cpuset/foreground/cpus 0-5
+    write /dev/cpuset/foreground/cpus 0-2,4-5
     write /dev/cpuset/foreground/boost/cpus 4-5
     write /dev/cpuset/background/cpus 0
-    write /dev/cpuset/system-background/cpus 0-3
+    write /dev/cpuset/system-background/cpus 0-2
+    mkdir /dev/cpuset/top-app/boost
+    write /dev/cpuset/top-app/cpus 0-5
+    write /dev/cpuset/top-app/boost/cpus 4-5
+
+
+    chown system system /dev/cpuset/top-app/boost
+    chown system system /dev/cpuset/top-app/boost/tasks
+    chmod 0664 /dev/cpuset/top-app/boost/tasks
 
     start rmt_storage
     start rfs_access
@@ -106,7 +123,7 @@ service qcamerasvr /system/bin/mm-qcamera-daemon
     class late_start
     user camera
     group camera system inet input graphics
-    writepid /dev/cpuset/system-background/tasks
+    writepid /dev/cpuset/camera-daemon/tasks
 
 ## Allow usb charging to be disabled persistently
 #on property:persist.usb.chgdisabled=1
