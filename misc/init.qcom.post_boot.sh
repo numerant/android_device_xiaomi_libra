@@ -845,8 +845,8 @@ case "$target" in
         echo 15 > /proc/sys/kernel/sched_small_task
         echo 20 > /proc/sys/kernel/sched_mostly_idle_load
         echo 3 > /proc/sys/kernel/sched_mostly_idle_nr_run
-        echo 85 > /proc/sys/kernel/sched_upmigrate
-        echo 70 > /proc/sys/kernel/sched_downmigrate
+        echo 95 > /proc/sys/kernel/sched_upmigrate
+        echo 80 > /proc/sys/kernel/sched_downmigrate
         echo 7500000 > /proc/sys/kernel/sched_cpu_high_irqload
         echo 60 > /proc/sys/kernel/sched_heavy_task
         echo 65 > /proc/sys/kernel/sched_init_task_load
