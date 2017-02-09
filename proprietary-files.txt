@@ -59,14 +59,23 @@ vendor/lib64/libbtnv.so
 
 # Camera
 bin/mm-qcamera-daemon
+etc/android_model_facea.dat
+etc/android_model_faceg.dat
+etc/people_gender.dat
+etc/watermark_font_2300_3199.dat
+lib/hw/camera.msm8992.so:camera.vendor.msm8992.so
 lib/libmm-qcamera.so
 lib/libmmcamera_interface.so
 lib/libmmjpeg_interface.so
+lib/libmorpho_memory_allocator.so
+lib/libmorpho_panorama.so
 lib/libqomx_core.so
-lib/hw/camera.msm8992.so:camera.vendor.msm8992.so
+lib64/libmorpho_memory_allocator.so
+lib64/libmorpho_panorama.so
 vendor/lib/libarcsoft_beauty_shot.so
 vendor/lib/libFaceProc.so
 vendor/lib/libfastcvadsp_stub.so
+vendor/lib/libflash_i2c.so
 vendor/lib/libflash_pmic.so
 vendor/lib/libjpegdhw.so
 vendor/lib/libjpegdmahw.so
@@ -459,19 +468,22 @@ vendor/lib/libactuator_rohm_bu64243gwz.so
 vendor/lib/libactuator_rohm_bu64244gwz_camcorder.so
 vendor/lib/libactuator_rohm_bu64244gwz_camera.so
 vendor/lib/libactuator_rohm_bu64244gwz.so
-lib/libmmcamera_interface.so
-lib/libmmjpeg_interface.so
-lib/libmm-qcamera.so
 vendor/lib/libmmipl.so
 vendor/lib/libmmjpeg.so
 vendor/lib/libmmqjpeg_codec.so
 vendor/lib/libmmqjpegdma.so
 vendor/lib/liboemcamera.so
+vendor/lib/libois_lc898122.so
+vendor/lib/libois_lc898123.so
 vendor/lib/libqomx_jpegdec.so
+vendor/lib/libqomx_jpegenc.so
 vendor/lib/libqomx_jpegenc_pipe.so
+vendor/lib/libSonyIMX230PdafLibrary.so
 vendor/lib64/libmmcamera2_q3a_core.so
 vendor/lib64/libmmcamera2_sensor_debug.so
 vendor/lib64/libmmcamera2_stats_algorithm.so
+vendor/lib64/libmmcamera_ov5645.so
+vendor/lib64/libmorpho_panorama_gp.so
 
 # Camera firmware
 etc/firmware/cpp_firmware_v1_1_1.fw
