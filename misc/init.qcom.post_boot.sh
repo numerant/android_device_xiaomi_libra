@@ -1136,6 +1136,9 @@ case "$target" in
     ;;
 esac
 
+# change GPU initial power level from 305MHz(level 4) to 180MHz(level 5) for power savings
+echo 5 > /sys/class/kgsl/kgsl-3d0/default_pwrlevel
+
 # Enable Power modes and set the CPU Freq Sampling rates
 case "$target" in
      "msm7627a")
