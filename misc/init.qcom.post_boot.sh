@@ -833,7 +833,8 @@ case "$target" in
         echo 0:1248000 > /sys/module/cpu_boost/parameters/input_boost_freq
         echo 40 > /sys/module/cpu_boost/parameters/input_boost_ms
         # core_ctl module
-        echo 2 > /sys/devices/system/cpu/cpu4/core_ctl/min_cpus
+        echo 0 > /sys/devices/system/cpu/cpu4/core_ctl/min_cpus
+        echo 2 > /sys/devices/system/cpu/cpu4/core_ctl/max_cpus
         echo 60 > /sys/devices/system/cpu/cpu4/core_ctl/busy_up_thres
         echo 30 > /sys/devices/system/cpu/cpu4/core_ctl/busy_down_thres
         echo 100 > /sys/devices/system/cpu/cpu4/core_ctl/offline_delay_ms
