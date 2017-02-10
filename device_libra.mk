@@ -270,6 +270,10 @@ PRODUCT_PACKAGES += \
     wpa_supplicant \
     wpa_supplicant.conf
 
+# For android_filesystem_config.h
+PRODUCT_PACKAGES += \
+   fs_config_files
+
 # Screen density
 PRODUCT_AAPT_CONFIG := normal
 PRODUCT_AAPT_PREF_CONFIG := xxhdpi
