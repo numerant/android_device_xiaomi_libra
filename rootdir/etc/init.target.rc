@@ -312,6 +312,11 @@ service ims_rtp_daemon /system/bin/ims_rtp_daemon
 on property:sys.ims.DATA_DAEMON_STATUS=1
     start ims_rtp_daemon
 
+service imscmservice /system/bin/imscmservice
+   class main
+   user system
+   group radio diag inet log
+
 service ppd /system/bin/mm-pp-daemon
     class late_start
     user system
@@ -320,6 +325,20 @@ service ppd /system/bin/mm-pp-daemon
 
 on property:init.svc.surfaceflinger=stopped
     stop ppd
+
+service displayfeature /system/bin/displayfeature
+    class late_start
+    user root
+    group root
+
+on property:init.svc.surfaceflinger=stopped
+    stop displayfeature
+
+on property:init.svc.surfaceflinger=running
+    start displayfeature
+
+on property:init.svc.surfaceflinger=restarting
+    stop displayfeature
 
 on charger
     wait /dev/block/bootdevice/by-name/system
@@ -383,3 +402,20 @@ on property:persist.sys.display_cabc=2
 
 on property:persist.sys.display_cabc=3
     write /sys/devices/virtual/graphics/fb0/msm_fb_dispparam 0x300
+
+# adbd is controlled via property triggers in init.<platform>.usb.rc
+service adbd /sbin/adbd
+    class core
+    disabled
+
+# Always start adbd on userdebug and eng builds
+on property:ro.debuggable=1
+    write /sys/class/android_usb/android0/enable 1
+    start adbd
+    setprop service.adb.root 1
+
+# Restart adbd so it can run as root
+on property:service.adb.root=1
+    write /sys/class/android_usb/android0/enable 0
+    restart adbd
+    write /sys/class/android_usb/android0/enable 1

@@ -1,5 +1,4 @@
-#
-# Copyright (C) 2016-2017 The LineageOS Project
+# Copyright (C) 2016 The CyanogenMod Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,28 +11,16 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
 
 LOCAL_PATH := $(call my-dir)
 
-ifeq ($(TARGET_DEVICE),libra)
-
-include $(call all-makefiles-under,$(LOCAL_PATH))
-
 include $(CLEAR_VARS)
 
-IMS_LIBS := libimscamera_jni.so libimsmedia_jni.so
+LOCAL_SRC_FILES := MediaBuffer.c
 
-IMS_SYMLINKS := $(addprefix $(TARGET_OUT_VENDOR_APPS)/ims/lib/arm64/,$(notdir $(IMS_LIBS)))
-$(IMS_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
-	@echo "IMS lib link: $@"
-	@mkdir -p $(dir $@)
-	@rm -rf $@
-	$(hide) ln -sf /system/vendor/lib64/$(notdir $@) $@
+LOCAL_SHARED_LIBRARIES := libstagefright_foundation
 
-ALL_DEFAULT_INSTALLED_MODULES += $(IMS_SYMLINKS)
+LOCAL_MODULE := libshims_ims
+LOCAL_MODULE_TAGS := optional
 
-# For creating rfs symbolic link in system partition
-include device/xiaomi/libra/tftp.mk
-
-endif
+include $(BUILD_SHARED_LIBRARY)

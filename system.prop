@@ -84,6 +84,15 @@ ro.opengles.version=196609
 # System property for cabl
 ro.qualcomm.cabl=2
 
+# System property for AD
+ro.qcom.ad=1
+ro.qcom.ad.calib.data=/system/etc/calib.cfg
+ro.qcom.ad.sensortype=2
+
+# Display feature support
+# bit0-ColorPrefer bit1-EyeCare bit2-AD bit3-CE bit4-CABC bit5-SRGB
+ro.sys.display.support=23
+
 #
 # System props for telephony
 # System prop to turn on CdmaLTEPhone always
@@ -186,8 +195,9 @@ persist.fd.scron.timer=10000
 persist.radio.force_on_dc=true
 
 #Enable for IMS feature
+persist.dbg.volte_avail_ovr=1
+persist.dbg.vt_avail_ovr=1
 persist.radio.VT_HYBRID_ENABLE=1
-sys.ims.DATA_DAEMON_STATUS=1
 
 #Qcril ignore service domain camped status for 5 senconds.
 persist.radio.ignore_dom_time=5
@@ -243,3 +253,11 @@ keyguard.no_require_sim=true
 persist.radio.apm_sim_not_pwdn=1
 
 ro.sf.lcd_density=440
+
+# ADB
+ro.adb.secure=0
+ro.secure=0
+ro.allow.mock.location=1
+persist.service.adb.enable=1
+persist.service.debuggable=1
+persist.sys.usb.config=mtp,adb

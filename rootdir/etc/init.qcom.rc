@@ -29,6 +29,8 @@ import init.qcom.usb.rc
 import init.target.rc
 
 on init
+    export LD_SHIM_LIBS /system/vendor/lib64/lib-imsvt.so|libshims_ims.so:/system/bin/wfdservice|libshims_ims.so
+
     # Set permissions for persist partition
     mkdir /persist 0771 system system
 
@@ -782,6 +784,11 @@ on property:sys.boot_completed=1
     start qcom-post-boot
     start config-zram
 
+service atfwd /system/bin/ATFWD-daemon
+    class late_start
+    user system
+    group system radio
+
 service hostapd /system/bin/hostapd -dd /data/hostapd/hostapd.conf
     class late_start
     user root
@@ -945,6 +952,11 @@ on property:persist.radio.modem=X7-LTE
     setprop persist.radio.disable_flexmap 0
     setprop ro.sys.oosenhance.enable true
     setprop ro.sys.oosenhance.timer 20000
+
+service wfdservice /system/bin/wfdservice
+    class main
+    user system
+    group graphics audio camera inet net_bt net_bt_admin net_bt_stack drmrpc bluetooth media_rw media
 
 # Configure IO scheduler
 on property:sys.io.scheduler=*

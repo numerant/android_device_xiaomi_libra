@@ -781,10 +781,10 @@ case "$target" in
         echo 19000 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/above_hispeed_delay
         echo 90 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/go_hispeed_load
         echo 20000 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/timer_rate
-        echo 1248000 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/hispeed_freq
+        echo 960000 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/hispeed_freq
         echo 1 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/io_is_busy
-        echo 65 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/target_loads
-        echo 20000 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/min_sample_time
+        echo 80 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/target_loads
+        echo 40000 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/min_sample_time
         echo 80000 > /sys/devices/system/cpu/cpu0/cpufreq/interactive/max_freq_hysteresis
         echo 302400 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
         # online CPU4
@@ -796,7 +796,7 @@ case "$target" in
         echo 1 > /sys/devices/system/cpu/cpu4/cpufreq/interactive/use_sched_load
         echo 1 > /sys/devices/system/cpu/cpu4/cpufreq/interactive/use_migration_notif
         echo 19000 > /sys/devices/system/cpu/cpu4/cpufreq/interactive/above_hispeed_delay
-        echo 80 > /sys/devices/system/cpu/cpu4/cpufreq/interactive/go_hispeed_load
+        echo 90 > /sys/devices/system/cpu/cpu4/cpufreq/interactive/go_hispeed_load
         echo 20000 > /sys/devices/system/cpu/cpu4/cpufreq/interactive/timer_rate
         echo 1248000 > /sys/devices/system/cpu/cpu4/cpufreq/interactive/hispeed_freq
         echo 1 > /sys/devices/system/cpu/cpu4/cpufreq/interactive/io_is_busy
@@ -842,15 +842,11 @@ case "$target" in
         echo 2 > /sys/devices/system/cpu/cpu4/core_ctl/task_thres
         # Setting b.L scheduler parameters
         echo 1 > /proc/sys/kernel/sched_migration_fixup
-        echo 15 > /proc/sys/kernel/sched_small_task
+        echo 30 > /proc/sys/kernel/sched_small_task
         echo 20 > /proc/sys/kernel/sched_mostly_idle_load
         echo 3 > /proc/sys/kernel/sched_mostly_idle_nr_run
-        echo 95 > /proc/sys/kernel/sched_upmigrate
-        echo 80 > /proc/sys/kernel/sched_downmigrate
-        echo 7500000 > /proc/sys/kernel/sched_cpu_high_irqload
-        echo 60 > /proc/sys/kernel/sched_heavy_task
-        echo 65 > /proc/sys/kernel/sched_init_task_load
-        echo 200000000 > /proc/sys/kernel/sched_min_runtime
+        echo 99 > /proc/sys/kernel/sched_upmigrate
+        echo 85 > /proc/sys/kernel/sched_downmigrate
         echo 400000 > /proc/sys/kernel/sched_freq_inc_notify
         echo 400000 > /proc/sys/kernel/sched_freq_dec_notify
         #relax access permission for display power consumption
@@ -873,8 +869,6 @@ esac
 
 case "$target" in
     "msm8994")
-        # enable suspend trace
-        echo 1 > /proc/suspend_trace_stats
         # ensure at most one A57 is online when thermal hotplug is disabled
         echo 0 > /sys/devices/system/cpu/cpu5/online
         echo 0 > /sys/devices/system/cpu/cpu6/online
