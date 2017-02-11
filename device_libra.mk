@@ -16,10 +16,6 @@ $(call inherit-product, frameworks/native/build/phone-xxxhdpi-4096-hwui-memory.m
 # Haters gonna hate..
 PRODUCT_CHARACTERISTICS := nosdcard
 
-#chargeonlymode
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/rootdir/etc/sbin/chargeonlymode:root/sbin/chargeonlymode
-
 #media
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/media/media_profiles.xml:system/etc/media_profiles.xml \

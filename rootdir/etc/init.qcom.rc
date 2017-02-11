@@ -857,7 +857,7 @@ service hcidump /system/bin/sh /system/etc/hcidump.sh
     disabled
     oneshot
 
-service charger /sbin/chargeonlymode
+service charger /charger
     class charger
     seclabel u:r:healthd:s0
     writepid /dev/cpuset/system-background/tasks
