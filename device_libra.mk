@@ -303,4 +303,5 @@ PRODUCT_PACKAGES += \
     init.target.rc \
     init.qcom.power.rc \
     ueventd.qcom.rc \
+    sensor_select.sh \
     fstab.qcom
