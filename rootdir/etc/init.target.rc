@@ -366,6 +366,12 @@ on charger
     chmod 0664 /sys/class/power_supply/bms/current_now
     chmod 0664 /sys/class/power_supply/bms/voltage_ocv
 
+service readmac /system/bin/readmac
+    class main
+    user root
+    group root
+    oneshot
+
 service energy-awareness /system/bin/energy-awareness
     class main
     user root
