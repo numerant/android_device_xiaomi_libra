@@ -143,6 +143,9 @@ MAX_EGL_CACHE_SIZE := 2048*1024
 
 TARGET_PLATFORM_DEVICE_BASE := /devices/soc.0/
 
+# Bionic
+MALLOC_SVELTE := true
+
 # Camera
 USE_DEVICE_SPECIFIC_CAMERA := true
 # Force camera module to be compiled only in 32-bit mode on 64-bit systems
