@@ -5,7 +5,7 @@ USE_CAMERA_STUB := true
 # inherit from the proprietary version
 -include vendor/xiaomi/libra/BoardConfigVendor.mk
 
-#Platform
+# Platform
 TARGET_BOARD_PLATFORM := msm8992
 TARGET_BOOTLOADER_BOARD_NAME := msm8992
 ARGET_NO_BOOTLOADER := true
@@ -13,12 +13,14 @@ BOOTLOADER_PLATFORM := msm8994 # use msm8994 LK configuration
 TARGET_BOARD_PLATFORM_GPU := qcom-adreno418
 TARGET_BOARD_SUFFIX := _64
 
-#Arch
+# Architecture
 TARGET_ARCH := arm64
 TARGET_ARCH_VARIANT := armv8-a
 TARGET_CPU_ABI := arm64-v8a
 TARGET_CPU_ABI2 :=
-TARGET_CPU_VARIANT := generic
+TARGET_CPU_VARIANT := cortex-a53
+
+# Second architecture
 TARGET_2ND_ARCH := arm
 TARGET_2ND_ARCH_VARIANT := armv7-a-neon
 TARGET_2ND_CPU_ABI := armeabi-v7a
