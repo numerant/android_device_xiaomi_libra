@@ -131,6 +131,10 @@ PRODUCT_PACKAGES += \
     libqcomvoiceprocessing \
     tinymix
 
+ADDITIONAL_BUILD_PROPERTIES += \
+    af.fast_track_multiplier=1 \
+    audio_hal.period_size=192
+
 # Charger
 PRODUCT_PACKAGES += \
     charger_res_images
