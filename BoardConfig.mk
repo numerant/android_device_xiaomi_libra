@@ -5,6 +5,9 @@ USE_CAMERA_STUB := true
 # inherit from the proprietary version
 -include vendor/xiaomi/libra/BoardConfigVendor.mk
 
+# Include path
+TARGET_SPECIFIC_HEADER_PATH := device/xiaomi/libra/include
+
 # Platform
 TARGET_BOARD_PLATFORM := msm8992
 TARGET_BOOTLOADER_BOARD_NAME := msm8992
@@ -73,7 +76,7 @@ BOARD_ANT_WIRELESS_DEVICE := "qualcomm-uart"
 # Audio
 BOARD_USES_ALSA_AUDIO := true
 TARGET_NO_RPC := true
-BOARD_SUPPORTS_SOUND_TRIGGER := false
+BOARD_SUPPORTS_SOUND_TRIGGER := true
 
 AUDIO_FEATURE_ENABLED_ACDB_LICENSE := true
 AUDIO_FEATURE_ENABLED_COMPRESS_CAPTURE := true
