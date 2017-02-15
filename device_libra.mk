@@ -155,14 +155,16 @@ PRODUCT_PACKAGES += \
 # GPS
 PRODUCT_PACKAGES += \
     gps.msm8992 \
+    libcurl
+
+PRODUCT_PACKAGES += \
     flp.conf \
     gps.conf \
     izat.conf \
     lowi.conf \
-    quipc.conf \
     sap.conf \
-    xtwifi.conf \
-    libcurl
+    xtwifi.conf
+
 
 # Doze
 PRODUCT_PACKAGES += \
