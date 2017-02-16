@@ -2,4 +2,5 @@
 <resources>
     <bool name="preferences_interface_drawer_compact_default">true</bool>
     <bool name="preferences_interface_use_scroller_default">false</bool>
+    <bool name="preferences_interface_drawer_search_default">false</bool>
 </resources>
