@@ -211,12 +211,6 @@ persist.camera.hal.debug.mask=268435456
 persist.camera.HAL3.enabled=0
 persist.camera.gyro.android=1
 
-# GPS
-persist.gps.qc_nlp_in_use=0
-ro.gps.agps_provider=1
-ro.qc.sdk.izat.premium.enabled=0
-ro.qc.sdk.izat.service_mask=0x0
-
 # Display
 debug.composition.type=c2d
 debug.mdpcomp.idletime=600

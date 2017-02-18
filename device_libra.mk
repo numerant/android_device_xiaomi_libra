@@ -152,17 +152,15 @@ PRODUCT_PACKAGES += \
     make_ext4fs \
     setup_fs
 
+# GPS configuration
+PRODUCT_COPY_FILES += \
+    device/xiaomi/libra/configs/gps.conf:system/etc/gps.conf
+
 # GPS
 PRODUCT_PACKAGES += \
-    gps.msm8992 \
-    flp.conf \
-    gps.conf \
-    izat.conf \
-    lowi.conf \
-    quipc.conf \
-    sap.conf \
-    xtwifi.conf \
-    libcurl
+    libgps.utils \
+    gps.msm8992
+
 
 # Doze
 PRODUCT_PACKAGES += \
