@@ -181,7 +181,8 @@ PRODUCT_PACKAGES += \
     hwcomposer.msm8992 \
     memtrack.msm8992 \
     liboverlay \
-    libtinyxml
+    libtinyxml \
+    libtinyxml2
 
 # IPv6
 PRODUCT_PACKAGES += \
