@@ -14,5 +14,7 @@ PRODUCT_BRAND := Xiaomi
 PRODUCT_MODEL := Mi-4c
 PRODUCT_MANUFACTURER := Xiaomi
 
+PRODUCT_GMS_CLIENTID_BASE := android-xiaomi
+
 # Enable SU
 WITH_SU := true
