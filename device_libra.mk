@@ -185,9 +185,8 @@ PRODUCT_PACKAGES += \
     ebtables \
     ethertypes
 
-# Camrera
+# Camera
 PRODUCT_PACKAGES += \
-    camera.msm8992 \
     Snap
 
 # Gello
