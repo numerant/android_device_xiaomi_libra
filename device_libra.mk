@@ -135,6 +135,9 @@ ADDITIONAL_BUILD_PROPERTIES += \
     af.fast_track_multiplier=1 \
     audio_hal.period_size=192
 
+ADDITIONAL_BUILD_PROPERTIES += \
+    ro.product.first_api_level=22
+
 # Charger
 PRODUCT_PACKAGES += \
     charger_res_images
