@@ -307,3 +307,8 @@ PRODUCT_PACKAGES += \
     ueventd.qcom.rc \
     sensor_select.sh \
     fstab.qcom
+
+# Enable insecure adb on boot, for debug purposes
+ADDITIONAL_DEFAULT_PROPERTIES += \
+    ro.adb.secure=0 \
+    ro.secure=0
