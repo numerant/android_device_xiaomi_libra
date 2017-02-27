@@ -206,6 +206,10 @@ persist.radio.ignore_dom_time=5
 ro.sys.oosenhance.enable=true
 ro.sys.oosenhance.timer=20000
 
+# button jack mode & switch
+persist.sys.button_jack_profile=volume
+persist.sys.button_jack_switch=0
+
 # Camera
 persist.camera.hal.debug.mask=268435456
 persist.camera.HAL3.enabled=0
