@@ -116,7 +116,8 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     com.dsi.ant.antradio_library \
     AntHalService \
-    libantradio
+    libantradio \
+    libbt-vendor
 
 # Audio
 PRODUCT_PACKAGES += \
