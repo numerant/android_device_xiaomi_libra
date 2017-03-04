@@ -136,6 +136,9 @@ PRODUCT_PACKAGES += \
     tinypcminfo \
     tinyplay
 
+# Audio calibration database
+ACDB_TARGET ?= Forte
+
 ADDITIONAL_BUILD_PROPERTIES += \
     af.fast_track_multiplier=1 \
     audio_hal.period_size=192
