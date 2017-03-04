@@ -22,7 +22,7 @@ ro.ril.multi_rat_capable=true
 ro.telephony.default_network=22,22
 
 ro.hdmi.enable=true
-persist.speaker.prot.enable=false
+persist.speaker.prot.enable=true
 #0 is default(30 min)
 persist.spkr.cal.duration=0
 qcom.hw.aac.encoder=true
