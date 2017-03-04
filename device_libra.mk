@@ -131,7 +131,10 @@ PRODUCT_PACKAGES += \
     libqcompostprocbundle \
     libqcomvisualizer \
     libqcomvoiceprocessing \
-    tinymix
+    tinycap \
+    tinymix \
+    tinypcminfo \
+    tinyplay
 
 ADDITIONAL_BUILD_PROPERTIES += \
     af.fast_track_multiplier=1 \
