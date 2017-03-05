@@ -38,17 +38,6 @@ on init
 on early-boot
     start select_sns_hal
 
-on post-fs
-
-    # We chown/chmod /cust again so because mount is run as root + defaults
-    chown system system /cust
-    chmod 0771 /cust
-    # We restorecon /cust in case the cust partition has been reset.
-    restorecon_recursive /cust
-
-    # create the lost+found directories, so as to enforce our permissions
-    mkdir /cust/lost+found 0770 root root
-
 on fs
     mount_all fstab.qcom
     swapon_all fstab.qcom
@@ -69,6 +58,16 @@ on fs
     wait /dev/block/bootdevice/by-name/bluetooth
     mount vfat /dev/block/bootdevice/by-name/bluetooth /bt_firmware ro shortname=lower,uid=1002,gid=3002,dmask=227,fmask=337,context=u:object_r:bt_firmware_file:s0
 
+on post-fs
+    # We chown/chmod /cust again so because mount is run as root + defaults
+    chown system system /cust
+    chmod 0771 /cust
+    # We restorecon /cust in case the cust partition has been reset.
+    restorecon_recursive /cust
+
+    # create the lost+found directories, so as to enforce our permissions
+    mkdir /cust/lost+found 0770 root root
+
 on post-fs-data
     mkdir /data/tombstones 0771 system system
     mkdir /tombstones/modem 0771 system system
@@ -82,29 +81,6 @@ on post-fs-data
     chmod 0660 /dev/sysmatdrv
 
 on boot
-    # add a cpuset for the camera daemon
-    # we want all the little cores for camera
-    mkdir /dev/cpuset/camera-daemon
-    write /dev/cpuset/camera-daemon/mems 0
-    write /dev/cpuset/camera-daemon/cpus 0-3
-    chown system system /dev/cpuset/camera-daemon
-    chown system system /dev/cpuset/camera-daemon/tasks
-    chmod 0664 /dev/cpuset/camera-daemon/tasks
-
-    # update foreground cpuset now that processors are up
-    write /dev/cpuset/foreground/cpus 0-2,4-5
-    write /dev/cpuset/foreground/boost/cpus 4-5
-    write /dev/cpuset/background/cpus 0
-    write /dev/cpuset/system-background/cpus 0-2
-    mkdir /dev/cpuset/top-app/boost
-    write /dev/cpuset/top-app/cpus 0-5
-    write /dev/cpuset/top-app/boost/cpus 4-5
-
-
-    chown system system /dev/cpuset/top-app/boost
-    chown system system /dev/cpuset/top-app/boost/tasks
-    chmod 0664 /dev/cpuset/top-app/boost/tasks
-
     start rmt_storage
     start rfs_access
 # access permission for secure touch
@@ -119,6 +95,28 @@ on boot
     write /proc/sys/kernel/sched_boost 1
     chown system system /sys/class/leds/button-backlight/max_brightness
     chown system system /sys/class/leds/button-backlight1/max_brightness
+
+    # add a cpuset for the camera daemon
+    # we want all the little cores for camera
+    mkdir /dev/cpuset/camera-daemon
+    write /dev/cpuset/camera-daemon/mems 0
+    write /dev/cpuset/camera-daemon/cpus 0-3
+    chown system system /dev/cpuset/camera-daemon
+    chown system system /dev/cpuset/camera-daemon/tasks
+    chmod 0664 /dev/cpuset/camera-daemon/tasks
+
+    write /dev/cpuset/foreground/cpus 0-2,4-5
+    write /dev/cpuset/foreground/boost/cpus 4-5
+    write /dev/cpuset/background/cpus 0
+    write /dev/cpuset/system-background/cpus 0-2
+    mkdir /dev/cpuset/top-app/boost
+    write /dev/cpuset/top-app/cpus 0-5
+    write /dev/cpuset/top-app/boost/cpus 4-5
+
+
+    chown system system /dev/cpuset/top-app/boost
+    chown system system /dev/cpuset/top-app/boost/tasks
+    chmod 0664 /dev/cpuset/top-app/boost/tasks
 
 #start camera server as daemon
 service qcamerasvr /system/bin/mm-qcamera-daemon
@@ -296,32 +294,6 @@ on property:init.svc.surfaceflinger=running
 on property:init.svc.surfaceflinger=restarting
     stop displayfeature
 
-on charger
-    wait /dev/block/bootdevice/by-name/system
-    mount ext4 /dev/block/bootdevice/by-name/system /system ro barrier=1
-    write /sys/class/input/input0/enabled 0
-    write /sys/class/input/input1/enabled 0
-    write /sys/class/input/input2/enabled 0
-    write /sys/class/input/input3/enabled 0
-    write /sys/class/input/input4/enabled 0
-    write /sys/class/input/input5/enabled 0
-    write /sys/module/lpm_levels/parameters/sleep_disabled 0
-    write /sys/module/lpm_levels/system/system-cci-pc/idle_enabled 0
-    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "userspace"
-    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_setspeed 300000
-    write /sys/devices/system/cpu/cpu1/online 1
-    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor "userspace"
-    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_setspeed 300000
-    write /sys/devices/system/cpu/cpu2/online 0
-    write /sys/devices/system/cpu/cpu3/online 0
-    write /sys/devices/system/cpu/cpu4/online 0
-    write /sys/devices/system/cpu/cpu5/online 0
-    write /sys/module/msm_thermal/parameters/enabled "N"
-    chown root system /sys/class/power_supply/bms/current_now
-    chown root system /sys/class/power_supply/bms/voltage_ocv
-    chmod 0664 /sys/class/power_supply/bms/current_now
-    chmod 0664 /sys/class/power_supply/bms/voltage_ocv
-
 service readmac /system/bin/readmac
     class main
     user root
@@ -341,29 +313,6 @@ service fidodaemon /system/vendor/bin/fidodaemon
 
 service bugreport_daemon /system/xbin/bugreport_daemon
     class late_start
-
-service eyecare /system/bin/eyecare
-    class late_start
-    user root
-    group root
-
-on property:persist.sys.display_ce=10
-    write /sys/devices/virtual/graphics/fb0/msm_fb_dispparam 0xF0
-
-on property:persist.sys.display_ce=11
-    write /sys/devices/virtual/graphics/fb0/msm_fb_dispparam 0x10
-
-on property:persist.sys.display_cabc=0
-    write /sys/devices/virtual/graphics/fb0/msm_fb_dispparam 0xF00
-
-on property:persist.sys.display_cabc=1
-    write /sys/devices/virtual/graphics/fb0/msm_fb_dispparam 0x100
-
-on property:persist.sys.display_cabc=2
-    write /sys/devices/virtual/graphics/fb0/msm_fb_dispparam 0x200
-
-on property:persist.sys.display_cabc=3
-    write /sys/devices/virtual/graphics/fb0/msm_fb_dispparam 0x300
 
 # adbd is controlled via property triggers in init.<platform>.usb.rc
 service adbd /sbin/adbd
