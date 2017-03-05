@@ -898,7 +898,7 @@ service charger /charger
 
 service ssr_diag /system/bin/ssr_diag
     class late_start
-#    user system
+    user system
     group system
     disabled
 
