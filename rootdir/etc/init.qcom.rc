@@ -332,7 +332,7 @@ service ssr_setup /system/bin/ssr_setup
     disabled
 
 service ss_ramdump /system/bin/subsystem_ramdump 2
-    class main
+    class late_start
 #    user system
     group system
     disabled
@@ -342,7 +342,8 @@ on property:persist.sys.ssr.restart_level=*
 
 on property:persist.sys.ssr.enable_ramdumps=1
     write /sys/module/subsystem_restart/parameters/enable_ramdumps 1
-    start ss_ramdump
+    mkdir /data/ramdump 770 system system
+#   start ss_ramdump
 
 on property:persist.sys.ssr.enable_ramdumps=0
     write /sys/module/subsystem_restart/parameters/enable_ramdumps 0
