@@ -203,14 +203,6 @@ service thermal-engine /system/vendor/bin/thermal-engine -T
    group root
    writepid /dev/cpuset/system-background/tasks
 
-service security-check1 /sbin/security_boot_check system
-    class core
-    oneshot
-
-service security-check2 /sbin/security_boot_check recovery
-    class core
-    oneshot
-
 service time_daemon /system/bin/time_daemon
     class late_start
     user root
