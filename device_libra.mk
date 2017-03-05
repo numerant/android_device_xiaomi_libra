@@ -176,9 +176,6 @@ PRODUCT_PACKAGES += \
     sap.conf \
     xtwifi.conf
 
-PRODUCT_BOOT_JARS += \
-    com.qti.location.sdk
-
 # Doze
 PRODUCT_PACKAGES += \
     LibraDoze
