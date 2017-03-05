@@ -740,12 +740,14 @@ service ftm_ffbm /system/bin/ftmdaemon
 
 service cnss_diag /system/bin/cnss_diag -q -f
     class main
-    user root
-    group root
+    user system
+    group system wifi inet net_admin sdcard_rw media_rw diag
     oneshot
 
 service cnss-daemon /system/bin/cnss-daemon -n -l
     class late_start
+    user system
+    group system inet net_admin wifi
 
 service dhcpcd_bt-pan /system/bin/dhcpcd -BKLG
     class late_start
