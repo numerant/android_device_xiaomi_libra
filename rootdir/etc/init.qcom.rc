@@ -82,6 +82,8 @@ on boot
     chmod 2770 /dev/socket/qmux_nfc
     chmod 0666 /sys/class/leds/flashlight/brightness
 
+    mkdir /persist/bluetooth 0770 bluetooth bluetooth
+
     # Leds
     chown system system /sys/class/leds/red/duty_pcts
     chown system system /sys/class/leds/green/duty_pcts
@@ -103,12 +105,15 @@ on boot
 #   ReadMin, ReadInitial, ReadMax, WriteMin, WriteInitial, WriteMax,
     setprop net.tcp.buffersize.wifi    524288,2097152,4194304,262144,524288,1048576
 
+
     setprop ro.telephony.call_ring.multiple false
 
     #Remove SUID bit for iproute2 ip tool
     chmod 0755 /system/bin/ip
 
+
     chmod 0444 /sys/devices/platform/msm_hsusb/gadget/usb_state
+
 
 #   Define TCP buffer sizes for various networks
 #   ReadMin, ReadInitial, ReadMax, WriteMin, WriteInitial, WriteMax,
@@ -428,6 +433,7 @@ service qcom-c_main-sh /system/bin/sh /init.class_main.sh
 
 on property:vold.decrypt=trigger_restart_framework
     start qcom-c_main-sh
+    start config_bt_addr
     start config_bluetooth
 
 on property:persist.env.fastdorm.enabled=true
@@ -488,6 +494,23 @@ service hci_filter_root /system/bin/wcnss_filter
     group bluetooth qcom_diag net_bt_stack system
     disabled
 
+service config_bt_addr /system/bin/btnvtool -O
+    class core
+    user bluetooth
+    group bluetooth radio
+    oneshot
+on property:wc_transport.start_root=true
+    start hci_filter_root
+
+on property:wc_transport.start_root=false
+    stop hci_filter_root
+
+service hci_filter_root /system/bin/wcnss_filter
+    class late_start
+    user bluetooth
+    group bluetooth qcom_diag net_bt_stack system
+    disabled
+
 service config_bluetooth /system/bin/sh /system/etc/init.qcom.bt.sh "onboot"
     class core
     user root
@@ -529,7 +552,7 @@ service bt-sap /system/bin/sapd 15
 
 service btsnoop /system/bin/btsnoop
    user bluetooth
-   group bluetooth net_bt_admin sdcard_rw sdcard_r
+   group bluetooth net_bt_admin sdcard_rw sdcard_r media_rw
    class late_start
    disabled
    oneshot
@@ -537,7 +560,7 @@ service btsnoop /system/bin/btsnoop
 service ftmd /system/bin/logwrapper /system/bin/ftmdaemon
     class late_start
     user root
-    group bluetooth net_bt_admin misc net_bt_stack qcom_diag net_bt
+    group bluetooth net_bt_admin misc net_bt_stack diag net_bt
     disabled
     oneshot
 
