@@ -303,9 +303,6 @@ service fidodaemon /system/vendor/bin/fidodaemon
     user system
     group system
 
-service bugreport_daemon /system/xbin/bugreport_daemon
-    class late_start
-
 # adbd is controlled via property triggers in init.<platform>.usb.rc
 service adbd /sbin/adbd
     class core
