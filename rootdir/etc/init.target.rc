@@ -39,8 +39,12 @@ on early-boot
     start select_sns_hal
 
 on fs
+    wait /dev/block/platform/soc.0/f9824900.sdhci/mmcblk0
+    symlink /dev/block/platform/soc.0/f9824900.sdhci /dev/block/bootdevice
+
     mount_all fstab.qcom
     swapon_all fstab.qcom
+    #write /proc/sys/vm/swappiness 100
 
     wait /dev/block/bootdevice/by-name/cache
     mount ext4 /dev/block/bootdevice/by-name/cache /cache nosuid nodev barrier=1
@@ -76,13 +80,14 @@ on post-fs-data
     mkdir /tombstones/dsps 0771 system system
     mkdir /data/misc/dts 0770 media audio
     mkdir /data/thermal 0771 system system
-    mkdir /persist/property 0700 root root
-    chown system system /dev/sysmatdrv
-    chmod 0660 /dev/sysmatdrv
 
 on boot
+    symlink /dev/block/platform/soc.0 /dev/block/bootdevice
     start rmt_storage
     start rfs_access
+    write /sys/bus/i2c/devices/2-004a/update_fw 1
+    write /sys/bus/i2c/devices/2-004a/update_cfg 1
+    write /sys/bus/i2c/devices/2-0020/input/input0/update_fw 1
 # access permission for secure touch
     chmod 0660 /sys/devices/soc.0/f9924000.i2c/i2c-2/2-0020/input/input0/secure_touch_enable
     chmod 0440 /sys/devices/soc.0/f9924000.i2c/i2c-2/2-0020/input/input0/secure_touch
@@ -238,13 +243,13 @@ service select_sns_hal /system/bin/sh /system/bin/sensor_select.sh
     group root
     oneshot
 
-service wcnss-service /system/bin/wcnss_service
-    class late_start
-    user root
-    group system wifi
-    oneshot
-
-
+#
+#service wcnss-service /system/bin/wcnss_service
+#    class late_start
+#    user root
+#    group system wifi
+#    oneshot
+#
 on property:sys.ims.QMI_DAEMON_STATUS=1
     start imsdatadaemon
 
@@ -286,11 +291,15 @@ on property:init.svc.surfaceflinger=running
 on property:init.svc.surfaceflinger=restarting
     stop displayfeature
 
-service readmac /system/bin/readmac
-    class main
+service ml_daemon /system/bin/ml_daemon
+    class core
     user root
     group root
-    oneshot
+
+service seald /system/bin/seald
+    class late_start
+    user root
+    group system
 
 service energy-awareness /system/bin/energy-awareness
     class main
@@ -298,10 +307,40 @@ service energy-awareness /system/bin/energy-awareness
     group system
     oneshot
 
+service dts_configurator /system/bin/dts_configurator
+    class late_start
+    user system
+    group system media audio
+    oneshot
+
+service dtseagleservice /system/bin/dts_eagle_service
+    class late_start
+    user system
+    group audio media
+    disabled
+
+on property:init.svc.dts_configurator=stopped
+    start dtseagleservice
+
 service fidodaemon /system/vendor/bin/fidodaemon
     class late_start
     user system
     group system
+
+service mtservice /system/bin/mtd
+    class late_start
+
+service vsimservice /system/bin/vsimd
+    class late_start
+
+service mlipayservice /system/bin/mlipayd
+    class late_start
+
+service readmac /system/bin/readmac
+    class main
+    user root
+    group root
+    oneshot
 
 # adbd is controlled via property triggers in init.<platform>.usb.rc
 service adbd /sbin/adbd
