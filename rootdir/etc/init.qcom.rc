@@ -997,13 +997,6 @@ service msm_irqbalance /system/bin/msm_irqbalance -f /system/vendor/etc/msm_irqb
     disabled
     writepid /dev/cpuset/system-background/tasks
 
-# To enable fast dormancy for CU
-on property:persist.radio.modem=LTE-CU
-    setprop persist.env.fastdorm.enabled true
-    setprop persist.radio.data_no_toggle 1
-    setprop persist.fd.scroff.timer 3000
-    setprop persist.fd.scron.timer 10000
-
 service mmbn-daemon /system/bin/mmbn-daemon
     class main
     oneshot
