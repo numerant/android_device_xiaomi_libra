@@ -21,6 +21,20 @@ ro.ril.multi_rat_capable=true
 #start in globe mode
 ro.telephony.default_network=22,22
 
+debug.sf.hw=1
+debug.egl.hw=1
+debug.composition.type=c2d
+persist.hwc.mdpcomp.enable=true
+persist.mdpcomp.4k2kSplit=1
+persist.mdpcomp_perfhint=50
+debug.mdpcomp.logs=0
+persist.metadata_dynfps.disable=true
+persist.hwc.ptor.enable=true
+dalvik.vm.heapsize=36m
+dev.pm.dyn_samplingrate=1
+persist.demo.hdmirotationlock=false
+
+ro.sf.lcd_density=440
 ro.hdmi.enable=true
 persist.speaker.prot.enable=true
 #0 is default(30 min)
@@ -88,7 +102,7 @@ persist.timed.enable=true
 ro.opengles.version=196610
 
 # System property for cabl
-ro.qualcomm.cabl=2
+ro.qualcomm.cabl=0
 
 # System property for AD
 ro.qcom.ad=1
@@ -219,19 +233,6 @@ persist.gps.qc_nlp_in_use=1
 persist.loc.nlp_name=com.qualcomm.location
 ro.gps.agps_provider=1
 
-# Display
-debug.composition.type=c2d
-debug.mdpcomp.idletime=600
-persist.hwc.mdpcomp.enable=true
-persist.hwc.mdpcomp.maxpermixer=5
-persist.hwc.ptor.enable=true
-persist.mdpcomp.4k2kSplit=true
-persist.mdpcomp_perfhint=50
-persist.metadata_dynfps.disable=true
-ro.opengles.version=196609
-ro.qualcomm.cabl=0
-debug.enable.sglscale=1
-
 # IO scheduler
 sys.io.scheduler=bfq
 
@@ -253,8 +254,6 @@ persist.data.qmi.adb_logmask=0
 ro.product.manufacturer=Xiaomi
 keyguard.no_require_sim=true
 persist.radio.apm_sim_not_pwdn=1
-
-ro.sf.lcd_density=440
 
 # ADB
 ro.adb.secure=0
