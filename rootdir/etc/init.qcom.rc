@@ -1003,21 +1003,8 @@ service mmbn-daemon /system/bin/mmbn-daemon
 
 on property:persist.radio.modem=X7-LTE
     setprop persist.radio.disable_flexmap 0
-    setprop ro.sys.oosenhance.enable true
-    setprop ro.sys.oosenhance.timer 20000
 
 service wfdservice /system/bin/wfdservice
     class main
     user system
     group graphics audio camera inet net_bt net_bt_admin net_bt_stack drmrpc bluetooth media_rw media
-
-# Configure IO scheduler
-on property:sys.io.scheduler=*
-    write /sys/block/mmcblk0/queue/scheduler ${sys.io.scheduler}
-
-on property:persist.sys.io.scheduler=*
-    setprop sys.io.scheduler ${persist.sys.io.scheduler}
-
-on property:dev.bootcomplete=1
-    setprop sys.io.scheduler "bfq"
-
