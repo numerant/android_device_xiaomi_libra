@@ -30,13 +30,17 @@ import init.target.rc
 
 on early-init
     mount debugfs debugfs /sys/kernel/debug
+    insmod /sbin/qcrypto_module.ko
+    insmod /sbin/qdrbg_module.ko
 
 on init
     export LD_SHIM_LIBS /system/vendor/lib64/lib-imsvt.so|libshims_ims.so:/system/bin/wfdservice|libshims_ims.so
 
+    start qfintverify
     # Set permissions for persist partition
     mkdir /persist 0771 system system
 
+    # Support legacy paths
     symlink /sdcard /mnt/sdcard
     symlink /sdcard /storage/sdcard0
 
@@ -356,7 +360,7 @@ service qfintverify /sbin/qfintverify
 service qcomsysd /system/bin/qcom-system-daemon
     class main
     user root
-    group root qcom_diag
+    group root diag
 
 service ssr_setup /system/bin/ssr_setup
     oneshot
@@ -467,9 +471,8 @@ on property:persist.env.fastdorm.enabled=true
     setprop persist.radio.data_no_toggle 1
 
 service cnd /system/bin/cnd
-    class late_start
+    class main
     socket cnd stream 660 root inet
-    group root wakelock
     writepid /dev/cpuset/system-background/tasks
 
 service dpmd /system/bin/dpmd
@@ -484,7 +487,6 @@ service irsc_util /system/bin/irsc_util "/etc/sec_config"
 service rmt_storage /system/bin/rmt_storage
     class core
     user root
-    group system wakelock
     writepid /dev/cpuset/system-background/tasks
 
 service rfs_access /system/bin/rfs_access
@@ -518,7 +520,7 @@ on property:wc_transport.start_root=false
 service hci_filter_root /system/bin/wcnss_filter
     class late_start
     user bluetooth
-    group bluetooth qcom_diag net_bt_stack system
+    group bluetooth qcom_diag system
     disabled
 
 service config_bt_addr /system/bin/btnvtool -O
@@ -601,12 +603,13 @@ service port-bridge /system/bin/port-bridge /dev/mhi_pipe_32 /dev/ttyGS0
 service qmuxd /system/bin/qmuxd
     class main
     user root
-    group radio audio bluetooth gps nfc diag qcom_diag wakelock
+    group radio audio bluetooth gps nfc diag
+    disabled
     writepid /dev/cpuset/system-background/tasks
 
 service netmgrd /system/bin/netmgrd
     class main
-    group radio system wakelock
+    disabled
     writepid /dev/cpuset/system-background/tasks
 
 service ipacm-diag /system/bin/ipacm-diag
@@ -620,13 +623,13 @@ service ipacm /system/bin/ipacm
     class main
     user net_admin
     group net_admin inet
-    writepid /dev/cpuset/system-background/tasks
     disabled
+    writepid /dev/cpuset/system-background/tasks
 
 service qti /system/vendor/bin/qti
     class main
     user radio
-    group radio net_raw qcom_diag usb net_admin
+    group radio net_raw diag usb net_admin
     disabled
     writepid /dev/cpuset/system-background/tasks
 
@@ -655,28 +658,22 @@ service btwlancoex /system/bin/sh /system/etc/init.qcom.coex.sh
     disabled
     oneshot
 
-#service amp_init /system/bin/amploader -i
-#    class late_start
-#    user root
-#    disabled
-#    oneshot
-
-#service amp_load /system/bin/amploader -l 7000
-#    class late_start
-#    user root
-#    disabled
-#    oneshot
-
-#service amp_unload /system/bin/amploader -u
-#    class late_start
-#    user root
-#    disabled
-#    oneshot
-
-service btnvtool /system/bin/btnvtool -w
-    class main
+service amp_init /system/bin/amploader -i
+    class late_start
     user root
-    group  bluetooth  qcom_diag root
+    disabled
+    oneshot
+
+service amp_load /system/bin/amploader -l 7000
+    class late_start
+    user root
+    disabled
+    oneshot
+
+service amp_unload /system/bin/amploader -u
+    class late_start
+    user root
+    disabled
     oneshot
 
 service p2p_supplicant /system/bin/wpa_supplicant \
@@ -791,7 +788,7 @@ service dhcpcd_bnep4 /system/bin/dhcpcd -BKLG
 service loc_launcher /system/bin/loc_launcher
     #loc_launcher will start as root and set its uid to gps
     class late_start
-    group gps inet net_raw qcom_diag net_admin wifi
+    group gps inet net_raw diag net_admin wifi
     writepid /dev/cpuset/system-background/tasks
 
 service fm_dl /system/bin/sh /system/etc/init.qcom.fm.sh
@@ -828,6 +825,13 @@ service qcom-post-boot /system/bin/sh /system/etc/init.qcom.post_boot.sh
     disabled
     oneshot
 
+service qti-testscripts /system/bin/sh /system/etc/init.qcom.testscripts.sh
+    class late_start
+    user root
+    disabled
+    oneshot
+    seclabel u:r:qti-testscripts:s0
+
 service wifi-sdio-on /system/bin/sh /system/etc/init.qcom.sdio.sh
     class late_start
     group wifi inet
@@ -842,6 +846,7 @@ service wifi-crda /system/bin/sh /system/etc/init.crda.sh
 
 on property:sys.boot_completed=1
     start qcom-post-boot
+    start qti-testscripts
 
 service atfwd /system/bin/ATFWD-daemon
     class late_start
@@ -878,7 +883,7 @@ service ril-daemon2 /system/bin/rild -c 2
     socket rild-debug2 stream 660 radio system
     user root
     disabled
-    group radio cache inet misc audio sdcard_r sdcard_rw diag qcom_diag log wakelock
+    group radio cache inet misc audio sdcard_r sdcard_rw qcom_diag diag log net_raw
     writepid /dev/cpuset/system-background/tasks
 
 service ril-daemon3 /system/bin/rild -c 3
@@ -887,12 +892,11 @@ service ril-daemon3 /system/bin/rild -c 3
     socket rild-debug3 stream 660 radio system
     user root
     disabled
-    group radio cache inet misc audio sdcard_r sdcard_rw diag qcom_diag log
+    group radio cache inet misc audio sdcard_r sdcard_rw qcom_diag diag log net_raw
 
 service usb_uicc_enable /system/bin/sh /system/etc/init.qcom.uicc.sh
     class late_start
     user root
-    disabled
     oneshot
 
 service usb_uicc_daemon /system/bin/usb_uicc_client
@@ -931,6 +935,12 @@ service ssr_diag /system/bin/ssr_diag
     group system
     disabled
 
+# Define fastmmi
+service fastmmi /system/bin/mmi
+    user root
+    group root
+    disabled
+
 service fastmmisrv /system/bin/sh /init.qcom.factory.sh
     user root
     disabled
@@ -953,12 +963,25 @@ on ffbm
     trigger early-boot
     trigger mmi
 
+service hvdcp /system/bin/hvdcp
+    class core
+    user root
+    disabled
 
+on property:persist.usb.hvdcp.detect=true
+    start hvdcp
+
+on property:persist.usb.hvdcp.detect=false
+    stop hvdcp
+
+service charger_monitor /system/bin/charger_monitor
+    user root
+    group root
+    disabled
 
 service qbcharger /charger -m 1
     disabled
     oneshot
-    seclabel u:r:healthd:s0
 
 on property:sys.qbcharger.enable=true
     start qbcharger
@@ -969,14 +992,14 @@ on property:sys.qbcharger.enable=false
 service diag_mdlog_start /system/bin/diag_mdlog -n 20
     class late_start
     user shell
-    group system qcom_diag sdcard_rw sdcard_r media_rw
+    group system qcom_diag sdcard_rw sdcard_r media_rw net_raw readproc
     disabled
     oneshot
 
 service diag_mdlog_stop /system/bin/diag_mdlog -k
     class late_start
     user shell
-    group system qcom_diag sdcard_rw sdcard_r media_rw
+    group system qcom_diag sdcard_rw sdcard_r media_rw net_raw readproc
     disabled
     oneshot
 
@@ -988,6 +1011,11 @@ on property:persist.sys.qlogd=1
     start qlogd
 on property:persist.sys.qlogd=0
     stop qlogd
+
+service vm_bms /system/bin/vm_bms
+    user root
+    group root
+    disabled
 
 service msm_irqbalance /system/bin/msm_irqbalance -f /system/vendor/etc/msm_irqbalance.conf
     socket msm_irqbalance seqpacket 660 root system
@@ -1008,3 +1036,27 @@ service wfdservice /system/bin/wfdservice
     class main
     user system
     group graphics audio camera inet net_bt net_bt_admin net_bt_stack drmrpc bluetooth media_rw media
+
+#service RIDL /system/vendor/bin/RIDLClient.exe
+#    class late_start
+#    oneshot
+#    user system
+#    group system inet log sdcard_r sdcard_rw qcom_diag
+    # removed for security team - misc bluetooth radio gps wifi diag media_rw
+    # limited to 12 groups.  Unused: audio usb net_bt_admin net_bt_stac net_raw net_admin
+
+# service for USERDEBUG
+service LKCore-dbg /system/vendor/bin/LKCore
+    class late_start
+    oneshot
+    disabled
+    user root
+    group root system log qcom_diag net_raw
+
+# service for USER
+service LKCore-rel /system/vendor/bin/LKCore
+    class late_start
+    oneshot
+    disabled
+    user system
+    group system log qcom_diag
