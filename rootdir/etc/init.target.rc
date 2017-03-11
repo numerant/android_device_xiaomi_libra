@@ -207,6 +207,7 @@ service thermal-engine /system/vendor/bin/thermal-engine -T
    socket thermal-recv-passive-client stream 0666 system system
    group root
    writepid /dev/cpuset/system-background/tasks
+   setenv LD_PRELOAD libshim_thermalengine.so
 
 service time_daemon /system/bin/time_daemon
     class late_start
