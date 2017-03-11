@@ -240,7 +240,8 @@ PRODUCT_PACKAGES += \
     libstagefright_soft_flacdec
 
 PRODUCT_PACKAGES += \
-    qcmediaplayer
+    qcmediaplayer \
+    libqcmediaplayer
 
 # Libshims
 PRODUCT_PACKAGES += \
