@@ -369,8 +369,8 @@ on charger
 
 service readmac /system/bin/readmac
     class main
-    user root
-    group root
+    user system
+    group radio qcom_diag log net_raw wifi
     oneshot
 
 service energy-awareness /system/bin/energy-awareness
