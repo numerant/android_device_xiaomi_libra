@@ -241,7 +241,8 @@ PRODUCT_PACKAGES += \
 
 # Libshims
 PRODUCT_PACKAGES += \
-    libshims_ims
+    libshims_ims \
+    libshim_thermalengine
 
 # RIL
 PRODUCT_PACKAGES += \
