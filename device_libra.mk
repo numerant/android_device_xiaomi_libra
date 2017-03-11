@@ -234,6 +234,9 @@ PRODUCT_PACKAGES += \
     libstagefrighthw \
     libstagefright_soft_flacdec
 
+PRODUCT_PACKAGES += \
+    qcmediaplayer
+
 # Libshims
 PRODUCT_PACKAGES += \
     libshims_ims \
