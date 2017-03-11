@@ -204,6 +204,7 @@ service thermal-engine /system/vendor/bin/thermal-engine -T
    socket thermal-recv-passive-client stream 0666 system system
    group root
    writepid /dev/cpuset/system-background/tasks
+   setenv LD_PRELOAD libshim_thermalengine.so
 
 service security-check1 /sbin/security_boot_check system
     class core
