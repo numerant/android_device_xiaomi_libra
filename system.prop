@@ -274,6 +274,7 @@ ro.btconfig.vendor=qcom
 ro.btconfig.chip=QCA6164
 keyguard.no_require_sim=true
 persist.radio.apm_sim_not_pwdn=1
+ro.frp.pst=/dev/block/bootdevice/by-name/config
 
 # ADB
 ro.adb.secure=0
