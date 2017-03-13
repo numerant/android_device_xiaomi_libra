@@ -248,11 +248,6 @@ persist.sys.button_jack_switch=0
 ro.hardware.fingerprint=fpc
 sys.fpc.tu.disabled=0
 
-# Camera
-persist.camera.hal.debug.mask=268435456
-persist.camera.HAL3.enabled=0
-persist.camera.gyro.android=1
-
 # GPS
 persist.gps.qc_nlp_in_use=1
 persist.loc.nlp_name=com.qualcomm.location
