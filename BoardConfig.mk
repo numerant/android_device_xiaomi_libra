@@ -185,9 +185,6 @@ BOARD_CHARGER_DISABLE_INIT_BLANK := true
 BOARD_HAL_STATIC_LIBRARIES += \
     libhealthd.msm8992
 
-# Added to indicate that protobuf-c is supported in this build
-PROTOBUF_SUPPORTED := true
-
 #Disable HW based full disk encryption
 TARGET_HW_DISK_ENCRYPTION := false
 
