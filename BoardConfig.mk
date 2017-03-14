@@ -1,7 +1,5 @@
 LOCAL_PATH := device/xiaomi/libra
 
-USE_CAMERA_STUB := true
-
 # inherit from the proprietary version
 -include vendor/xiaomi/libra/BoardConfigVendor.mk
 
