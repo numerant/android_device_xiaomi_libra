@@ -228,6 +228,9 @@ persist.debug.coresight.config=stm-events
 # Enable manual network selection function and distinguish 2G/3G/4G
 persist.radio.rat_on=combine
 
+# Only for CMCC workarroud for an OOM issue
+persist.ims.disableUserAgent=1
+
 #For specail cdma card sms issue
 persist.radio.force_on_dc=true
 
