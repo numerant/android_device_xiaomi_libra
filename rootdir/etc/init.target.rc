@@ -339,8 +339,8 @@ service mlipayservice /system/bin/mlipayd
 
 service readmac /system/bin/readmac
     class main
-    user system
-    group radio qcom_diag log net_raw wifi
+    user root
+    group root
     oneshot
 
 # adbd is controlled via property triggers in init.<platform>.usb.rc
