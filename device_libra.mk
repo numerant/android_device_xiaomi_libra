@@ -156,9 +156,6 @@ PRODUCT_PACKAGES += \
     libcnefeatureconfig \
     services-ext
 
-PRODUCT_PACKAGES += \
-    tcmiface
-
 PRODUCT_BOOT_JARS += tcmiface WfdCommon
 
 # Filesystem management tools
