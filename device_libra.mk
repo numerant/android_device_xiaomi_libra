@@ -156,8 +156,6 @@ PRODUCT_PACKAGES += \
     libcnefeatureconfig \
     services-ext
 
-PRODUCT_BOOT_JARS += tcmiface WfdCommon
-
 # Filesystem management tools
 PRODUCT_PACKAGES += \
     e2fsck \
