@@ -232,14 +232,6 @@ WIFI_DRIVER_FW_PATH_STA         := "sta"
 TARGET_USES_QCOM_WCNSS_QMI      := true
 WPA_SUPPLICANT_VERSION          := VER_0_8_X
 
-# Dex
-ifeq ($(HOST_OS),linux)
-  ifneq ($(TARGET_BUILD_VARIANT),eng)
-    WITH_DEXPREOPT ?= true
-  endif
-endif
-WITH_DEXPREOPT_BOOT_IMG_ONLY ?= true
-
 #Recovery
 #RECOVERY_VARIANT := twrp
 ifneq ($(RECOVERY_VARIANT),twrp)
