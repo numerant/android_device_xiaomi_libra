@@ -251,17 +251,6 @@ persist.sys.button_jack_switch=0
 ro.hardware.fingerprint=fpc
 sys.fpc.tu.disabled=0
 
-# GPS
-persist.gps.qc_nlp_in_use=1
-persist.loc.nlp_name=com.qualcomm.location
-ro.gps.agps_provider=1
-
-# IO scheduler
-sys.io.scheduler=bfq
-
-# Dexopt
-ro.sys.fw.dex2oat_thread_count=4
-
 #
 # ADDITIONAL_BUILD_PROPERTIES
 #
@@ -290,6 +279,12 @@ keyguard.no_require_sim=true
 persist.power.useautobrightadj=true
 persist.radio.apm_sim_not_pwdn=1
 
+
+#
+# ADDITIONAL_BUILD_PROPERTIES
+#
+# custom properties
+#
 # ADB
 ro.adb.secure=0
 ro.secure=0
@@ -297,3 +292,15 @@ ro.allow.mock.location=1
 persist.service.adb.enable=1
 persist.service.debuggable=1
 persist.sys.usb.config=mtp,adb
+
+# GPS
+persist.gps.qc_nlp_in_use=1
+persist.loc.nlp_name=com.qualcomm.location
+ro.gps.agps_provider=1
+
+# IO scheduler
+sys.io.scheduler=bfq
+
+# Dexopt
+ro.sys.fw.dex2oat_thread_count=4
+
