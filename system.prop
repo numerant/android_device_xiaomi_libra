@@ -262,17 +262,33 @@ sys.io.scheduler=bfq
 # Dexopt
 ro.sys.fw.dex2oat_thread_count=4
 
+#
+# ADDITIONAL_BUILD_PROPERTIES
+#
+# from MiUI Nougat
+#
+ro.product.first_api_level=22
 persist.sys.mcd_config_file=/system/etc/mcd_default.conf
 persist.sys.klo=on
+persist.sys.whetstone.level=2
+persist.sys.frozenKernel=true
+ro.ss.version=5.1.111
+ro.ss.nohidden=true
 ro.carrier=unknown
 ro.vendor.extension_library=libqti-perfd-client.so
+persist.radio.custom_ecc=1
+persist.radio.sib16_support=1
+ro.frp.pst=/dev/block/bootdevice/by-name/config
+af.fast_track_multiplier=1
+audio_hal.period_size=192
+ro.wlan.mimo=1
 ro.btconfig.if=uart
 ro.btconfig.dev=/dev/ttyHS0
 ro.btconfig.vendor=qcom
 ro.btconfig.chip=QCA6164
 keyguard.no_require_sim=true
+persist.power.useautobrightadj=true
 persist.radio.apm_sim_not_pwdn=1
-ro.frp.pst=/dev/block/bootdevice/by-name/config
 
 # ADB
 ro.adb.secure=0
