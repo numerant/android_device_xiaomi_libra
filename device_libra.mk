@@ -133,6 +133,7 @@ PRODUCT_PACKAGES += \
     libqcomvoiceprocessing \
     tinycap \
     tinymix \
+    cplay \
     tinypcminfo \
     tinyplay
 
