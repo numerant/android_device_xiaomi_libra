@@ -20,7 +20,7 @@ LOCAL_SRC_FILES := MediaBuffer.c
 
 LOCAL_SHARED_LIBRARIES := libstagefright_foundation
 
-LOCAL_MODULE := libshims_ims
+LOCAL_MODULE := libshim_media
 LOCAL_MODULE_TAGS := optional
 
 include $(BUILD_SHARED_LIBRARY)
