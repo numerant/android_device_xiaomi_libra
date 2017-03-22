@@ -207,7 +207,6 @@ BOARD_HARDWARE_CLASS := \
 TARGET_TAP_TO_WAKE_NODE := "/proc/touchscreen/double_tap_enable"
 
 # Ril
-FEATURE_QCRIL_UIM_SAP_SERVER_MODE := true
 TARGET_RIL_VARIANT := caf
 
 # Added to indicate that protobuf-c is supported in this build
