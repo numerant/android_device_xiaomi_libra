@@ -174,10 +174,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     LibraDoze
 
-# ExtraSettings
-PRODUCT_PACKAGES += \
-    ExtraSettings
-
 # Graphics
 PRODUCT_PACKAGES += \
     copybit.msm8992 \
