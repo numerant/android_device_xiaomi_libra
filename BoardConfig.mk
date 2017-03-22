@@ -29,7 +29,6 @@ TARGET_2ND_CPU_VARIANT := cortex-a53.a57
 ENABLE_CPUSETS := true
 
 TARGET_USES_64_BIT_BINDER := true
-TARGET_CPU_SMP := true
 
 # Use Snapdragon LLVM
 TARGET_USE_SDCLANG := true
