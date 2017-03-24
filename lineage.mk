@@ -19,6 +19,3 @@ PRODUCT_GMS_CLIENTID_BASE := android-xiaomi
 PRODUCT_BUILD_PROP_OVERRIDES += \
     BUILD_FINGERPRINT="Xiaomi/libra/libra:7.0/NRD90M/7.2.23:user/release-keys" \
     PRIVATE_BUILD_DESC="libra-user 7.0 NRD90M 7.2.23 release-keys"
-
-# Enable SU
-WITH_SU := true
