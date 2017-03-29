@@ -49,6 +49,15 @@ $(WCNSS_MAC_SYMLINK): $(LOCAL_INSTALLED_MODULE)
 
 ALL_DEFAULT_INSTALLED_MODULES += $(WCNSS_INI_SYMLINK) $(WCNSS_MAC_SYMLINK)
 
+# Create links for audcal data files
+$(shell mkdir -p $(TARGET_OUT)/etc/firmware/wcd9320; \
+	ln -sf /data/misc/audio/wcd9320_anc.bin \
+		$(TARGET_OUT)/etc/firmware/wcd9320/wcd9320_anc.bin;\
+	ln -sf /data/misc/audio/mbhc.bin \
+		$(TARGET_OUT)/etc/firmware/wcd9320/wcd9320_mbhc.bin; \
+	ln -sf /data/misc/audio/wcd9320_mad_audio.bin \
+		$(TARGET_OUT)/etc/firmware/wcd9320/wcd9320_mad_audio.bin)
+
 # For creating rfs symbolic link in system partition
 include device/xiaomi/libra/tftp.mk
 
