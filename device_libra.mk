@@ -15,6 +15,10 @@ $(call inherit-product, frameworks/native/build/phone-xhdpi-2048-dalvik-heap.mk)
 # Haters gonna hate..
 PRODUCT_CHARACTERISTICS := nosdcard
 
+# Dalvik-Hack
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/prebuilt/etc/init.d/01dalvik:system/etc/init.d/01dalvik
+
 #media
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/media/media_profiles.xml:system/etc/media_profiles.xml \
