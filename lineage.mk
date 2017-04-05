@@ -17,5 +17,5 @@ PRODUCT_MANUFACTURER := Xiaomi
 PRODUCT_GMS_CLIENTID_BASE := android-xiaomi
 
 PRODUCT_BUILD_PROP_OVERRIDES += \
-    BUILD_FINGERPRINT="Xiaomi/libra/libra:7.0/NRD90M/7.2.23:user/release-keys" \
-    PRIVATE_BUILD_DESC="libra-user 7.0 NRD90M 7.2.23 release-keys"
+    BUILD_FINGERPRINT="Xiaomi/libra/libra:5.1.1/LMY47V/V8.1.3.0.LXKCNDI:user/release-keys" \
+    PRIVATE_BUILD_DESC="libra-user 5.1.1 LMY47V V8.1.3.0.LXKCNDI release-keys"
