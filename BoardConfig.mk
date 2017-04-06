@@ -254,5 +254,8 @@ include device/qcom/sepolicy/sepolicy.mk
 
 BOARD_SEPOLICY_DIRS += device/xiaomi/libra/sepolicy
 
+# Seccomp filters
+BOARD_SECCOMP_POLICY += device/xiaomi/libra/seccomp
+
 # Add fix for common JACK issues
 ANDROID_JACK_VM_ARGS := -Dfile.encoding=UTF-8 -XX:+TieredCompilation -Xmx4096m
