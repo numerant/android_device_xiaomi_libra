@@ -8,7 +8,6 @@ DEVICE_PACKAGE_OVERLAYS += vendor/hnt/overlay
 
 TARGET_OTA_ASSERT_DEVICE := 4C,libra
 
-$(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base_telephony.mk)
 $(call inherit-product, frameworks/native/build/phone-xhdpi-2048-dalvik-heap.mk)
 
