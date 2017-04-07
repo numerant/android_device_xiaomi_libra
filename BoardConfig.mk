@@ -1,4 +1,4 @@
-LOCAL_PATH := device/xiaomi/libra
+DEVICE_PATH := device/xiaomi/libra
 
 # inherit from the proprietary version
 -include vendor/xiaomi/libra/BoardConfigVendor.mk
@@ -50,7 +50,7 @@ MAX_EGL_CACHE_KEY_SIZE := 12*1024
 MAX_EGL_CACHE_SIZE := 2048*1024
 
 # Assertions
-TARGET_BOARD_INFO_FILE ?= $(LOCAL_PATH)/board-info.txt
+TARGET_BOARD_INFO_FILE ?= $(DEVICE_PATH)/board-info.txt
 TARGET_OTA_ASSERT_DEVICE := 4C,libra
 
 HAVE_ADRENO_SOURCE:= false
@@ -164,7 +164,7 @@ TARGET_PLATFORM_DEVICE_BASE := /devices/soc.0/
 
 # Releasetools
 TARGET_RECOVERY_UPDATER_LIBS := librecovery_updater_libra
-TARGET_RELEASETOOLS_EXTENSIONS := $(LOCAL_PATH)
+TARGET_RELEASETOOLS_EXTENSIONS := $(DEVICE_PATH)
 
 # Bionic
 MALLOC_SVELTE := true
@@ -234,10 +234,10 @@ WPA_SUPPLICANT_VERSION          := VER_0_8_X
 #Recovery
 #RECOVERY_VARIANT := twrp
 ifneq ($(RECOVERY_VARIANT),twrp)
-#TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/recovery/recovery.fstab
+#TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery/recovery.fstab
 else
 TW_THEME := portrait_hdpi
-TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/twrp/twrp.fstab
+TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/twrp/twrp.fstab
 RECOVERY_GRAPHICS_FORCE_USE_LINELENGTH := true
 DEVICE_RESOLUTION := 1080x1920
 RECOVERY_SDCARD_ON_DATA := true
