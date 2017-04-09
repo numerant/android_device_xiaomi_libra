@@ -269,8 +269,7 @@ PRODUCT_PACKAGES += \
     hostapd \
     dhcpcd.conf \
     wpa_supplicant \
-    wpa_supplicant.conf \
-    readmac
+    wpa_supplicant.conf
 
 # For android_filesystem_config.h
 PRODUCT_PACKAGES += \

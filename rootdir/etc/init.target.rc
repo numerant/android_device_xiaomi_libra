@@ -340,12 +340,6 @@ service vsimservice /system/bin/vsimd
 service mlipayservice /system/bin/mlipayd
     class late_start
 
-service readmac /system/bin/readmac
-    class main
-    user root
-    group root
-    oneshot
-
 # adbd is controlled via property triggers in init.<platform>.usb.rc
 service adbd /sbin/adbd
     class core
